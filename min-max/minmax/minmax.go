@@ -1,6 +1,8 @@
 package minmax
 
-import "errors"
+import (
+	"errors"
+)
 
 type minMaxEvaluator func(int32, int32, int, int) (int32, int)
 
@@ -62,8 +64,8 @@ func ascending(el1, el2 int32) (int32, int32) {
 
 func GetNLowestElementsFromArray(n int, arr []int32) []int32 {
 	var newArr []int32
-	tempArr := arr
-
+	tempArr := make([]int32, len(arr))
+	copy(tempArr, arr)
 	for len(newArr) < n {
 		el, pos := getLowest(tempArr)
 		newArr = append(newArr, el)
@@ -74,7 +76,8 @@ func GetNLowestElementsFromArray(n int, arr []int32) []int32 {
 
 func GetNHighestElementsFromArray(n int, arr []int32) []int32 {
 	var newArr []int32
-	tempArr := arr
+	tempArr := make([]int32, len(arr))
+	copy(tempArr, arr)
 
 	for len(newArr) < n {
 		el, pos := getHighest(tempArr)
@@ -84,26 +87,26 @@ func GetNHighestElementsFromArray(n int, arr []int32) []int32 {
 	return Sort(newArr, ascending)
 }
 
-func SumMinNElements(n int, arr []int32) (int32, error) {
+func SumMinNElements(n int, arr []int32) (int64, error) {
 	if n >= len(arr) {
 		return -1, invalidLength
 	}
 	elements := GetNLowestElementsFromArray(n, arr)
-	var total int32 = 0
+	var total int64 = 0
 	for _, el := range elements {
-		total += el
+		total += int64(el)
 	}
 	return total, nil
 }
 
-func SumMaxNElements(n int, arr []int32) (int32, error) {
+func SumMaxNElements(n int, arr []int32) (int64, error) {
 	if n >= len(arr) {
 		return -1, invalidLength
 	}
 	elements := GetNHighestElementsFromArray(n, arr)
-	var total int32 = 0
+	var total int64 = 0
 	for _, el := range elements {
-		total += el
+		total += int64(el)
 	}
 	return total, nil
 }

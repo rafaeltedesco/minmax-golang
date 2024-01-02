@@ -6,9 +6,11 @@ import (
 )
 
 func main() {
-	result, err := minmax.SumMinNElements(10, []int32{10, 20, 30})
-	if err != nil {
-		panic(err)
-	}
+	arr := []int32{1, 2, 3, 4, 5}
+	result, _ := minmax.SumMinNElements(len(arr)-1, arr)
 	fmt.Println(result)
+
+	result, _ = minmax.SumMaxNElements(len(arr)-1, arr)
+	fmt.Println(result)
+
 }

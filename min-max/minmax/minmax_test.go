@@ -117,3 +117,17 @@ func (s *SuiteMinMax) TestCannotAskForMoreElementsThanIsInSlice() {
 	s.NotNil(err)
 	assert.Equal(s.T(), "invalid length", err.Error())
 }
+
+func (s *SuiteMinMax) TestNewMinMaxCase() {
+	var (
+		inputs = []int32{256741038, 623958417, 467905213, 714532089, 938071625}
+		output = []int64{2063136757, 2744467344}
+	)
+	result, err := SumMaxNElements(len(inputs)-1, inputs)
+	s.Nil(err)
+	s.Equal(output[1], result)
+
+	result, err = SumMinNElements(len(inputs)-1, inputs)
+	s.Nil(err)
+	s.Equal(output[0], result)
+}
