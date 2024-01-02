@@ -4,91 +4,105 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 )
 
-func TestGetHighest(t *testing.T) {
-	var (
-		expectedPos int   = 2
-		expectEl    int32 = 5
-	)
-	el, pos := getHighest([]int32{1, 2, 5, 3, 0})
-
-	assert.Equal(t, expectEl, el)
-	assert.Equal(t, expectedPos, pos)
+type SuiteMinMax struct {
+	suite.Suite
+	arr []int32
 }
 
-func TestGetLowest(t *testing.T) {
+func (s *SuiteMinMax) SetupTest() {
+	s.arr = []int32{1, 2, 3, 4, 5}
+}
+
+func TestRunTestSuite(t *testing.T) {
+	suite.Run(t, new(SuiteMinMax))
+}
+
+func (s *SuiteMinMax) TestGetHighest() {
+	var (
+		expectedPos int   = 4
+		expectEl    int32 = 5
+	)
+	el, pos := getHighest(s.arr)
+
+	assert.Equal(s.T(), expectEl, el)
+	assert.Equal(s.T(), expectedPos, pos)
+}
+
+func (s *SuiteMinMax) TestGetLowest() {
 	var (
 		expectedPos int   = 0
 		expectedEl  int32 = 1
 	)
-	el, pos := getLowest([]int32{1, 2, 3, 4, 5})
-	assert.Equal(t, expectedEl, el)
-	assert.Equal(t, expectedPos, pos)
+	el, pos := getLowest(s.arr)
+	assert.Equal(s.T(), expectedEl, el)
+	assert.Equal(s.T(), expectedPos, pos)
 }
 
-func TestGetMaxUsingEvaluator(t *testing.T) {
+func (s *SuiteMinMax) TestGetMaxUsingEvaluator() {
 	var (
 		expectedPos int   = 4
 		expectedEl  int32 = 5
 	)
-	el, pos := GetEl([]int32{1, 2, 3, 4, 5}, maxEvaluator)
-	assert.Equal(t, expectedEl, el)
-	assert.Equal(t, expectedPos, pos)
+	el, pos := GetEl(s.arr, maxEvaluator)
+	assert.Equal(s.T(), expectedEl, el)
+	assert.Equal(s.T(), expectedPos, pos)
 }
 
-func TestGetMinUsingEvaluator(t *testing.T) {
+func (s *SuiteMinMax) TestGetMinUsingEvaluator() {
 	var (
-		expectedPos int   = 4
-		expectEl    int32 = 0
+		expectedPos int   = 0
+		expectEl    int32 = 1
 	)
-	el, pos := GetEl([]int32{1, 2, 5, 3, 0}, minEvaluator)
+	el, pos := GetEl(s.arr, minEvaluator)
 
-	assert.Equal(t, expectEl, el)
-	assert.Equal(t, expectedPos, pos)
+	assert.Equal(s.T(), expectEl, el)
+	assert.Equal(s.T(), expectedPos, pos)
 }
 
-func TestGetNLowestElementsFromArray(t *testing.T) {
+func (s *SuiteMinMax) TestGetNLowestElementsFromArray() {
 	var (
 		expectedArr = []int32{1, 2, 3, 4}
 	)
 
-	arr := GetNLowestElementsFromArray(4, []int32{1, 2, 3, 4, 5})
+	arr := GetNLowestElementsFromArray(4, s.arr)
 
-	assert.Equal(t, expectedArr, arr)
+	assert.Equal(s.T(), expectedArr, arr)
 }
 
-func TestSortAscending(t *testing.T) {
+func (s *SuiteMinMax) TestSortAscending() {
 	var (
-		expectedArr = []int32{1, 2, 3, 4, 5}
+		expectedArr = s.arr
 	)
 	unsortedArr := []int32{5, 4, 3, 2, 1}
 	arr := Sort(unsortedArr, ascending)
-	assert.Equal(t, expectedArr, arr)
+	assert.Equal(s.T(), expectedArr, arr)
 }
 
-func TestGetNHighestElementsFromArray(t *testing.T) {
+func (s *SuiteMinMax) TestGetNHighestElementsFromArray() {
 	var (
 		expectedArr = []int32{2, 3, 4, 5}
 	)
 
-	arr := GetNHighestElementsFromArray(4, []int32{1, 2, 3, 4, 5})
+	arr := GetNHighestElementsFromArray(4, s.arr)
 
-	assert.Equal(t, expectedArr, arr)
+	assert.Equal(s.T(), expectedArr, arr)
 }
 
-func TestSumMinNElements(t *testing.T) {
+func (s *SuiteMinMax) TestSumMinNElements() {
 	var (
 		expected int32 = 10
 	)
-	response := SumMinNElements(4, []int32{1, 2, 3, 4, 5})
-	assert.Equal(t, expected, response)
+	response := SumMinNElements(4, s.arr)
+	assert.Equal(s.T(), expected, response)
 }
 
-func TestSumMaxNElements(t *testing.T) {
+func (s *SuiteMinMax) TestSumMaxNElements() {
 	var (
 		expected int32 = 14
 	)
-	response := SumMaxNElements(4, []int32{1, 2, 3, 4, 5})
-	assert.Equal(t, expected, response)
+	response := SumMaxNElements(4, s.arr)
+	assert.Equal(s.T(), expected, response)
 }
