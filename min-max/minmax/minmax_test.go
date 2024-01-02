@@ -76,3 +76,19 @@ func TestGetNHighestElementsFromArray(t *testing.T) {
 
 	assert.Equal(t, expectedArr, arr)
 }
+
+func TestSumMinNElements(t *testing.T) {
+	var (
+		expected int32 = 10
+	)
+	response := SumMinNElements(4, []int32{1, 2, 3, 4, 5})
+	assert.Equal(t, expected, response)
+}
+
+func TestSumMaxNElements(t *testing.T) {
+	var (
+		expected int32 = 14
+	)
+	response := SumMaxNElements(4, []int32{1, 2, 3, 4, 5})
+	assert.Equal(t, expected, response)
+}

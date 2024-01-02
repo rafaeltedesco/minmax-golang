@@ -79,3 +79,21 @@ func GetNHighestElementsFromArray(n int, arr []int32) []int32 {
 	}
 	return Sort(newArr, ascending)
 }
+
+func SumMinNElements(n int, arr []int32) int32 {
+	elements := GetNLowestElementsFromArray(n, arr)
+	var total int32 = 0
+	for _, el := range elements {
+		total += el
+	}
+	return total
+}
+
+func SumMaxNElements(n int, arr []int32) int32 {
+	elements := GetNHighestElementsFromArray(n, arr)
+	var total int32 = 0
+	for _, el := range elements {
+		total += el
+	}
+	return total
+}
