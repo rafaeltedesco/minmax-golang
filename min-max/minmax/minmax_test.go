@@ -95,7 +95,8 @@ func (s *SuiteMinMax) TestSumMinNElements() {
 	var (
 		expected int32 = 10
 	)
-	response := SumMinNElements(4, s.arr)
+	response, err := SumMinNElements(4, s.arr)
+	s.Nil(err)
 	assert.Equal(s.T(), expected, response)
 }
 
@@ -103,6 +104,16 @@ func (s *SuiteMinMax) TestSumMaxNElements() {
 	var (
 		expected int32 = 14
 	)
-	response := SumMaxNElements(4, s.arr)
+	response, err := SumMaxNElements(4, s.arr)
+	s.Nil(err)
 	assert.Equal(s.T(), expected, response)
+}
+
+func (s *SuiteMinMax) TestCannotAskForMoreElementsThanIsInSlice() {
+	_, err := SumMaxNElements(10, s.arr)
+	s.NotNil(err)
+	assert.Equal(s.T(), "invalid length", err.Error())
+	_, err = SumMinNElements(5, s.arr)
+	s.NotNil(err)
+	assert.Equal(s.T(), "invalid length", err.Error())
 }

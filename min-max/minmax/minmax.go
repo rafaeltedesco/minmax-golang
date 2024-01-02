@@ -1,6 +1,10 @@
 package minmax
 
+import "errors"
+
 type minMaxEvaluator func(int32, int32, int, int) (int32, int)
+
+var invalidLength = errors.New("invalid length")
 
 func minEvaluator(lowestEl, nextEl int32, lowestPos int, nextPos int) (int32, int) {
 	if nextEl < lowestEl {
@@ -80,20 +84,26 @@ func GetNHighestElementsFromArray(n int, arr []int32) []int32 {
 	return Sort(newArr, ascending)
 }
 
-func SumMinNElements(n int, arr []int32) int32 {
+func SumMinNElements(n int, arr []int32) (int32, error) {
+	if n >= len(arr) {
+		return -1, invalidLength
+	}
 	elements := GetNLowestElementsFromArray(n, arr)
 	var total int32 = 0
 	for _, el := range elements {
 		total += el
 	}
-	return total
+	return total, nil
 }
 
-func SumMaxNElements(n int, arr []int32) int32 {
+func SumMaxNElements(n int, arr []int32) (int32, error) {
+	if n >= len(arr) {
+		return -1, invalidLength
+	}
 	elements := GetNHighestElementsFromArray(n, arr)
 	var total int32 = 0
 	for _, el := range elements {
 		total += el
 	}
-	return total
+	return total, nil
 }
