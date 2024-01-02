@@ -47,3 +47,32 @@ func TestGetMinUsingEvaluator(t *testing.T) {
 	assert.Equal(t, expectEl, el)
 	assert.Equal(t, expectedPos, pos)
 }
+
+func TestGetNLowestElementsFromArray(t *testing.T) {
+	var (
+		expectedArr = []int32{1, 2, 3, 4}
+	)
+
+	arr := GetNLowestElementsFromArray(4, []int32{1, 2, 3, 4, 5})
+
+	assert.Equal(t, expectedArr, arr)
+}
+
+func TestSortAscending(t *testing.T) {
+	var (
+		expectedArr = []int32{1, 2, 3, 4, 5}
+	)
+	unsortedArr := []int32{5, 4, 3, 2, 1}
+	arr := Sort(unsortedArr, ascending)
+	assert.Equal(t, expectedArr, arr)
+}
+
+func TestGetNHighestElementsFromArray(t *testing.T) {
+	var (
+		expectedArr = []int32{2, 3, 4, 5}
+	)
+
+	arr := GetNHighestElementsFromArray(4, []int32{1, 2, 3, 4, 5})
+
+	assert.Equal(t, expectedArr, arr)
+}
